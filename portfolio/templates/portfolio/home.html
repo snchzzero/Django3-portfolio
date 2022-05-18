@@ -1,15 +1,24 @@
+
+
 {% extends 'portfolio/base.html' %} <!-- добавляем базовый шаблон (навбар) для страницы -->
 {% block content %}
+{% load static %} <!-- когда используем статические файлы всегда добавляем эту команду -->
+<div class="row justify-content-center my-3">
+  <div class="col-5">
+    <img src="{% static 'portfolio/portret_min.jpg' %}" class="img-fluid">
+  </div>
+</div>
 
-<form action="{% url 'blog:all_blogs' %}">
-  <input type="submit" value="Блог" class="btn btn-secondary btn-sm">
-</form>
+<div class="row justify-content-center mb-3">
+  <div class="col-md-9 text-center">
+    <h1 id="hometext" class="font-weight-bold">Привет, меня зовут Евстафьев Александр и я- Junior Backend Python developer</h1>
+  </div>
+</div>
 
- <h1><b>Домашняя страница портфолио</b></h1>
 
- {% load static %} <!-- когда используем статические файлы всегда добавляем эту команду -->
+
  <br><a href="{% static 'portfolio/Евстафьев Александр Анатольевич.pdf' %}">Resume</a>
- <br><img src="{% static 'portfolio/portret.jpg' %}" width="18%" height="70%">
+ <!-- <br><img src="{% static 'portfolio/portret.jpg' %}" width="18%" height="70%">  -->
 
  {% for project in projects %}  <!-- логическая связь между кодом и шаблоном (цикл django по работе списка с шаблоном) -->
 
