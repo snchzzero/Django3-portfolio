@@ -1,0 +1,25 @@
+{% extends 'portfolio/base.html' %} <!-- добавляем базовый шаблон (навбар) для страницы -->
+{% block content %}
+
+Hello Blog
+<h2>Aleksandr has written {{ projects.count }} blog{{ projects.count|pluralize }}</h2>
+<!-- blog{{ projects.count|pluralize }} - в зависимости от кол-ва добавляет или убирает на конце "blog" s (blog/blogs) -->
+
+
+ {% for project in projects %}  <!-- логическая связь между кодом и шаблоном (цикл django по работе списка с шаблоном) -->
+
+<a href="{% url 'blog:detail' project.id %}"><h2>{{ project.title }}</h2></a> <!-- Отображение перебора по списку -->
+ <p>{{ project.description|striptags|truncatechars:100 }}</p>
+<!-- "|truncatechars:100" ограничивает кол-во отображаемых символов-->
+<!-- "|safe" позволяет использовать пользователю тэги html -->
+<!-- "|striptags" скрывает использование тэгов html -->
+ <img src="{{ project.image.url }}">
+ <h5>{{ project.date|date:'d M Y' }}</h5>
+<!-- "|date: 'M d Y'" - настраивает отображение даты -->
+ {% if project.url %} <!-- Если ссылка существует то ее отображаем -->
+ <br><a href="{{ project.url }}">Link</a>
+ {% endif %}
+
+ {% endfor %} <!-- Конец списка -->
+
+{% endblock %}
