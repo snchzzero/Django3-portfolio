@@ -1,0 +1,43 @@
+{% extends 'portfolio/base.html' %} <!-- добавляем базовый шаблон (навбар) для страницы -->
+{% block content %}
+
+<br>
+<hr>
+<h2 class="razdel">Aleksandr has written {{ projects.count }} blog{{ projects.count|pluralize }}</h2>
+<!-- blog{{ projects.count|pluralize }} - в зависимости от кол-ва добавляет или убирает на конце "blog" s (blog/blogs) -->
+<br>
+
+ {% for project in projects %}  <!-- логическая связь между кодом и шаблоном (цикл django по работе списка с шаблоном) -->
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+     <a href="{% url 'blog:detail' project.id %}"><h2>{{ project.title }}</h2></a> <!-- Отображение перебора по списку -->
+    </h5>
+    <p class="card-text">
+      <p>{{ project.description|safe|truncatechars:100 }}</p>
+        <!-- "|truncatechars:100" ограничивает кол-во отображаемых символов-->
+        <!-- "|safe" позволяет использовать пользователю тэги html -->
+        <!-- "|striptags" скрывает использование тэгов html -->
+    </p>
+    <p class="card-text"><small class="text-muted">
+     {{ project.date|date:'d M Y' }} <!-- "|date: 'M d Y'" - настраивает отображение даты -->
+     {% if project.url %} <!-- Если ссылка существует то ее отображаем -->
+        <br><a href="{{ project.url }}">Link</a>
+     {% endif %}
+    </small></p>
+  </div>
+  <img src="{{ project.image.url }}" class="card-img-top" alt="...">
+</div>
+  <br>
+  <hr>
+  <br>
+
+
+
+
+
+ {% endfor %} <!-- Конец списка -->
+
+{% endblock %}
+
